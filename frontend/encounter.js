@@ -105,7 +105,16 @@ function initEncounterChat() {
                     const videoUrl = result.data.raw_llm_response.replace(/[`'\s]/g, '');
                     const videoPlayer = document.getElementById('videoPlayer');
                     const videoContainer = document.getElementById('videoPlayerContainer');
-                    videoPlayer.src = videoUrl;
+                    
+                    // 修改为创建链接而非视频元素
+                    videoContainer.innerHTML = `
+                        <h3>平行宇宙视频已生成</h3>
+                        <p>点击下方链接查看视频：</p>
+                        <a href="${videoUrl}" target="_blank" class="video-status-link">
+                            查看平行宇宙视频状态
+                        </a>
+                    `;
+                    
                     videoContainer.classList.add('active');
                     videoContainer.scrollIntoView({ behavior: 'smooth' });
                 } else {
