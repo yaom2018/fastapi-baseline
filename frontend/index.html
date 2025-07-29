@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUTURE CRAFT</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://via.placeholder.com/32x32" type="image/png">
+</head>
+<body>
+    <div class="starry-background"></div>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="logo">FUTURE CRAFT</div>
+            <div class="music-player">
+                <span class="music-icon">🎵</span>
+                <span class="music-text">Music</span>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 0%"></div>
+                </div>
+                <span class="time">0:00 / 0:00</span>
+                <button class="play-button" id="playButton">▶</button>
+            </div>
+            <div class="nav-links">
+                <span>未来交流园</span>
+                <span>写信给我</span>
+                <span>搜索...</span>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <div class="card-container">
+                <!-- Chat Card -->
+                <div class="card chat-card">
+                    <h3>Chat with parallel universe</h3>
+                    <p>与平行宇宙对话</p>
+                </div>
+
+                <!-- Profile Card -->
+                <div class="card profile-card">
+                    <div class="profile-header">
+                        <img src="profile-pic.jpg" alt="Profile" class="profile-img">
+                        <div class="profile-info">
+                            <span class="username">@New User</span>
+                            <p class="profile-bio">写下你的星际旅程和故事，还有来自平行宇宙的神秘信息将在特定时刻向你发送</p>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-value">10</span>
+                            <span class="stat-label">Likes</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">15</span>
+                            <span class="stat-label">Friends</span>
+                        </div>
+                    </div>
+                    <button class="edit-bio">Change Your BIO</button>
+                </div>
+
+                <!-- Encounter Card -->
+                <div class="card encounter-card">
+                    <a href="encounter.html" class="card encounter-card clickable-card">
+                    <h3>Encounter yourself in parallel universe</h3>
+                    <p>遇见平行宇宙的自己</p>
+                </a>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-pink">
+                    <span class="btn-icon">📩</span>
+                    Receiver
+                    <span class="btn-subtext">Travel the Universe with Messages</span>
+                </button>
+                <button class="btn btn-yellow">
+                    <span class="btn-icon">✍️</span>
+                    Write Letters →
+                    <span class="btn-subtext">Explore the Unknown with Words</span>
+                </button>
+                <button class="btn btn-blue">
+                    <span class="btn-icon">🔍</span>
+                    More functions...
+                    <span class="btn-subtext">Uncover the Parallel World's Mysteries</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

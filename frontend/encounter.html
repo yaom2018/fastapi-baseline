@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遇见平行宇宙的自己</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://via.placeholder.com/32x32" type="image/png">
+</head>
+<body>
+    <div class="starry-background"></div>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">FUTURE CRAFT</div>
+            <!-- 导航栏其他内容 -->
+        </nav>
+        
+        <main class="encounter-page">
+            <h1>遇见平行宇宙的自己</h1>
+            <!-- 添加平行宇宙页面内容 -->
+            <div class="universe-content">
+                <!-- 对话容器 -->
+                <div class="chat-container">
+                    <!-- 两个表单区域 -->
+                    <div class="dual-forms-container">
+                        <!-- 表单一：我的消息 -->
+                        <form id="myMessageForm" class="message-form">
+                            <h3>先向平行宇宙悄悄讲述一下你的近期感受吧！
+                            来自平行宇宙的你，也想听到你的经历~❤
+                            多讲讲开心的事情哦！</h3>
+                            <textarea 
+                                name="myMessage" 
+                                class="message-input" 
+                                placeholder="我是一名物理学家，研究方向为天体问题..."
+                                maxlength="200"
+                                required
+                            ></textarea>
+                        </form>
+
+                        <!-- 表单二：平行宇宙消息 -->
+                        <form id="parallelMessageForm" class="message-form">
+                            <h3>现在可以讲一讲不开心的事情😔
+                                讲述一下你未实现的梦想或是遗憾吧~❤
+                                平行宇宙的你将会替你完成梦想，
+                                与自己见面，看看你是否适合另一种选择呢？</h3>
+                            <textarea 
+                                name="parallelMessage" 
+                                class="message-input" 
+                                placeholder="我想当一名历史学家，探索历史的厚重..."
+                                maxlength="200"
+                                required
+                            ></textarea>
+                        </form>
+                    </div>
+                    <div class="common-submit-area">
+                        <button id="commonSendButton" class="btn-send main-send-btn">生成平行宇宙视频</button>
+                    </div>                 
+
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="encounter.js"></script>
+</body>
+</html>

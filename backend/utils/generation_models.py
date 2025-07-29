@@ -7,7 +7,6 @@ from enum import Enum
 class GenerationResponseData(BaseModel):
     file_id: str
     success: bool
-    html_path: Optional[str] = None
     message: Optional[str] = None
     raw_llm_response: Optional[str] = None
 
@@ -17,13 +16,10 @@ class GenerationMode(str, Enum):
     PASTE = "paste"
 
 class GenerationRequest(BaseModel):
-    mode: GenerationMode
     prompt: Optional[str] = None
-    template: Optional[str] = None
-    html_input: Optional[str] = None
-    style: Optional[str] = Field(default="default")
-    model: Optional[str] = None
-    temperature: Optional[float] = 0.7
+    current_track: Optional[str] = None
+    unchosen_track: Optional[str] = None
+    user_name: Optional[str] = None
 
 
 # 智能总结返回Data

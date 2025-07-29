@@ -1,6 +1,7 @@
 import os
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from starlette.staticfiles import StaticFiles
 
 from app.router import get_main_router
@@ -11,6 +12,28 @@ app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.PROJECT_VERSION,
     debug=settings.DEBUG
+)
+
+# 配置允许的源列表
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+    "http://localhost:3000",  # 常见的前端开发端口
+    "http://localhost:5500",  # Live Server默认端口
+    "http://127.0.0.1:5500"
+    # 添加其他允许的源
+]
+
+# 添加 CORS 中间件
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # 允许所有方法
+    allow_headers=["*"],  # 允许所有头部
+    expose_headers=["*"],  # 暴露所有头部
+    max_age=600,  # 预检请求缓存时间
 )
 
 os.makedirs(settings.OUTPUT_DIR, exist_ok=True)
