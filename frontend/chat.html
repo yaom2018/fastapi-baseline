@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>与平行宇宙对话</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://via.placeholder.com/32x32" type="image/png">
+</head>
+<body>
+    <div class="starry-background"></div>
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="back-button">
+                <span class="btn-icon">←</span>
+                <span>返回首页</span>
+            </a>
+            <div class="logo">FUTURE CRAFT</div>
+            <div class="music-player">
+                <span class="music-icon">🎵</span>
+                <span class="music-text">背景音乐</span>
+                <button class="play-button">▶</button>
+            </div>
+        </nav>
+
+        <main class="chat-page">
+            <h1>与平行宇宙对话</h1>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- 系统消息 -->
+                    <div class="message system-message">
+                        <div class="message-bubble">
+                            <p>欢迎来到平行宇宙对话！在这里，你将收到来自另一个宇宙的回应...</p>
+                        </div>
+                    </div>
+
+                    <!-- 平行宇宙消息 -->
+                    <div class="message parallel-message">
+                        <div class="message-avatar">
+                            <div class="avatar-stars"></div>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <p>嗨！我是来自平行宇宙的你。在我的时空里，我选择了成为一名历史学家，正在研究中世纪欧洲史。虽然这条路也充满挑战，但我从未后悔这个选择。</p>
+                            </div>
+                            <div class="message-meta">平行宇宙 · 刚刚</div>
+                        </div>
+                    </div>
+
+                    <!-- 用户消息示例 -->
+                    <div class="message user-message">
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <p>那太神奇了！我一直对历史很感兴趣但从未勇敢尝试。你觉得我们的选择会导致完全不同的人生轨迹吗？</p>
+                            </div>
+                            <div class="message-meta">我 · 刚刚</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 消息输入区域 -->
+                <div class="chat-input-area">
+                    <textarea
+                        id="messageInput"
+                        class="message-input"
+                        placeholder="输入消息..."
+                        maxlength="300"
+                    ></textarea>
+                    <div class="input-footer">
+                        <span id="charCount">0/300</span>
+                        <button id="sendButton" class="btn-send">发送</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="chat.js"></script>
+</body>
+</html>
