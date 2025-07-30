@@ -1,162 +1,202 @@
-// 消息字数统计
-const messageInput = document.getElementById('messageInput');
-const charCount = document.getElementById('charCount');
-const sendButton = document.getElementById('sendButton');
-const chatMessages = document.getElementById('chatMessages');
-
-// 字数统计功能
-messageInput.addEventListener('input', () => {
-    const count = messageInput.value.length;
-    charCount.textContent = `${count}/300`;
-    // 根据字数启用/禁用发送按钮
-    sendButton.disabled = count === 0 || count > 300;
-});
-
-// 发送消息功能
-sendButton.addEventListener('click', sendMessage);
-messageInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取所有需要的元素
+    const messageInput = document.getElementById('message-input');
+    const charCount = document.getElementById('char-count');
+    const sendButton = document.getElementById('send-button');
+    const chatMessages = document.getElementById('chatMessages');
+    
+    // 确保所有元素都存在
+    if (!messageInput || !charCount || !sendButton || !chatMessages) {
+        console.error('无法找到所有必需的元素');
+        return;
     }
-});
-
-
-function sendMessage() {
-  console.log('sendMessage function called');
-  const input = document.getElementById('message-input');
-  const message = input.value.trim();
-  
-  console.log('Message input value:', message);
-  
-  if (message && message.length <= 200) {
-    console.log('Message is valid, adding to chat');
-    // 添加用户消息
-    addMessageToChat('user', message);
-    input.value = '';
+    
+    // 初始化字符计数
     updateCharacterCount();
     
-    // 显示加载状态
-    const loadingMessageId = addLoadingIndicator();
-    console.log('Loading indicator added with ID:', loadingMessageId);
+    // 绑定输入事件
+    messageInput.addEventListener('input', updateCharacterCount);
     
-    // 调用API获取响应
-    generateResponse(message)
-      .then(responseText => {
-        console.log('API call successful, response text:', responseText);
-        // 移除加载状态并显示实际响应
-        removeLoadingIndicator(loadingMessageId);
-        addMessageToChat('parallel', responseText);
-      })
-      .catch(error => {
-        console.error('API call failed:', error);
-        removeLoadingIndicator(loadingMessageId);
-        addMessageToChat('system', '获取响应失败: ' + error.message);
-      });
-  } else {
-    console.log('Message is invalid or too long');
-    if (!message) {
-      addMessageToChat('system', '请输入消息内容');
-    } else {
-      addMessageToChat('system', '消息长度不能超过200个字符');
-    }
-  }
-}
-
-function addMessageToChat(sender, text) {
-  console.log('addMessageToChat called with sender:', sender, 'and text:', text);
-  const chatContainer = document.getElementById('chat-container');
-  if (!chatContainer) {
-    console.error('chat-container element not found');
-    return;
-  }
-  
-  // ... existing message creation code ...
-  
-  chatContainer.appendChild(messageElement);
-  chatContainer.scrollTop = chatContainer.scrollHeight;
-  console.log('Message added to chat container');
-}
-
-// 生成平行宇宙回应（简单模拟）
-async function generateResponse(userMessage) {
-  console.log('generateResponse called with message:', userMessage);
-  
-  try {
-    // 构造请求数据
-    const requestData = {
-      prompt: userMessage
-    };
-    console.log('Request data:', requestData);
+    // 绑定发送按钮点击事件
+    sendButton.addEventListener('click', sendMessage);
     
-    // 使用用户提供的正确API路径
-    console.log('Sending request to:', 'http://localhost:8000/api/v1/generate/chat');
-    const response = await fetch('http://localhost:8000/api/v1/generate/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestData)
+    // 绑定回车键发送事件
+    messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
     });
     
-    console.log('Response received with status:', response.status);
-    
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('HTTP error details:', errorText);
-      throw new Error(`HTTP错误: ${response.status} - ${errorText}`);
+    // 字符计数更新函数
+    function updateCharacterCount() {
+        const currentLength = messageInput.value.length;
+        charCount.textContent = `${currentLength}/200`;
+        
+        // 根据长度改变颜色提示
+        if (currentLength > 180) {
+            charCount.style.color = '#ff4444';
+        } else if (currentLength > 150) {
+            charCount.style.color = '#ffaa00';
+        } else {
+            charCount.style.color = '#00aa00';
+        }
     }
     
-    const data = await response.json();
-    console.log('Response JSON:', data);
-    
-    // 验证响应格式
-    if (data.code !== 200 || !data.data || typeof data.data.raw_llm_response !== 'string') {
-      throw new Error(`API响应错误: ${data.msg || '未知错误'}`);
+    // 发送消息函数
+    function sendMessage() {
+        const message = messageInput.value.trim();
+        
+        if (message && message.length <= 200) {
+            // 添加用户消息
+            addMessageToChat('user', message);
+            messageInput.value = '';
+            updateCharacterCount();
+            
+            // 显示加载状态
+            const loadingMessageId = addLoadingIndicator();
+            
+            // 调用API获取响应
+            generateResponse(message)
+                .then(responseText => {
+                    removeLoadingIndicator(loadingMessageId);
+                    addMessageToChat('parallel', responseText);
+                })
+                .catch(error => {
+                    removeLoadingIndicator(loadingMessageId);
+                    addMessageToChat('system', '获取响应失败: ' + error.message);
+                });
+        } else {
+            if (!message) {
+                addMessageToChat('system', '请输入消息内容');
+            } else {
+                addMessageToChat('system', '消息长度不能超过200个字符');
+            }
+        }
     }
     
-    // 移除raw_llm_response外层引号
-    let rawResponse = data.data.raw_llm_response;
-    if (rawResponse.startsWith('"') && rawResponse.endsWith('"')) {
-      rawResponse = rawResponse.slice(1, -1);
+    // 添加消息到聊天窗口
+    function addMessageToChat(sender, text) {
+        const messageElement = document.createElement('div');
+        
+        if (sender === 'parallel') {
+            // 平行宇宙消息结构
+            messageElement.className = 'message parallel-message';
+            messageElement.innerHTML = `
+                <div class="message-avatar">
+                    <div class="avatar-stars"></div>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <p>${escapeHtml(text)}</p>
+                    </div>
+                    <div class="message-meta">平行宇宙 · 刚刚</div>
+                </div>
+            `;
+        } else if (sender === 'user') {
+            // 用户消息结构
+            messageElement.className = 'message user-message';
+            messageElement.innerHTML = `
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <p>${escapeHtml(text)}</p>
+                    </div>
+                    <div class="message-meta">我 · 刚刚</div>
+                </div>
+            `;
+        } else {
+            // 系统消息
+            messageElement.className = 'message system-message';
+            messageElement.innerHTML = `
+                <div class="message-bubble">
+                    <p>${escapeHtml(text)}</p>
+                </div>
+            `;
+        }
+        
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
     }
     
-    console.log('Processed response text:', rawResponse);
-    return rawResponse;
-  } catch (error) {
-    console.error('Error in generateResponse:', error);
-    throw error;
-  }
-}
-
-function addLoadingIndicator() {
-  const chatContainer = document.getElementById('chat-container');
-  const loadingId = 'loading-' + Date.now();
-  const loadingElement = document.createElement('div');
-  loadingElement.id = loadingId;
-  loadingElement.className = 'message loading';
-  loadingElement.innerHTML = '<div class="message-content"><div class="typing-indicator"><span></span><span></span><span></span></div></div>';
-  chatContainer.appendChild(loadingElement);
-  chatContainer.scrollTop = chatContainer.scrollHeight;
-  return loadingId;
-}
-
-function removeLoadingIndicator(loadingId) {
-  const loadingElement = document.getElementById(loadingId);
-  if (loadingElement) {
-    loadingElement.remove();
-  }
-}
-
-
-// HTML转义函数
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-// 页面加载完成时滚动到底部
-window.addEventListener('load', () => {
+    // 生成平行宇宙回应
+    async function generateResponse(userMessage) {
+        try {
+            // 构造请求数据
+            const requestData = {
+                prompt: userMessage
+            };
+            
+            // 使用用户提供的API路径
+            const response = await fetch('http://localhost:8000/api/v1/generate/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData)
+            });
+            
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP错误: ${response.status} - ${errorText}`);
+            }
+            
+            const data = await response.json();
+            
+            // 验证响应格式
+            if (data.code !== 200 || !data.data || typeof data.data.raw_llm_response !== 'string') {
+                throw new Error(`API响应错误: ${data.msg || '未知错误'}`);
+            }
+            
+            // 移除raw_llm_response外层引号
+            let rawResponse = data.data.raw_llm_response;
+            if (rawResponse.startsWith('"') && rawResponse.endsWith('"')) {
+                rawResponse = rawResponse.slice(1, -1);
+            }
+            
+            return rawResponse;
+        } catch (error) {
+            throw error;
+        }
+    }
+    
+    // 添加加载指示器
+    function addLoadingIndicator() {
+        const loadingId = 'loading-' + Date.now();
+        const loadingElement = document.createElement('div');
+        loadingElement.id = loadingId;
+        loadingElement.className = 'message parallel-message loading';
+        loadingElement.innerHTML = `
+            <div class="message-avatar">
+                <div class="avatar-stars"></div>
+            </div>
+            <div class="message-content">
+                <div class="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        `;
+        chatMessages.appendChild(loadingElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return loadingId;
+    }
+    
+    // 移除加载指示器
+    function removeLoadingIndicator(loadingId) {
+        const loadingElement = document.getElementById(loadingId);
+        if (loadingElement) {
+            loadingElement.remove();
+        }
+    }
+    
+    // HTML转义函数
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    // 页面加载完成时滚动到底部
     chatMessages.scrollTop = chatMessages.scrollHeight;
 });
