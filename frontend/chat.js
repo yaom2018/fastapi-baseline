@@ -103,6 +103,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class="message-meta">我 · 刚刚</div>
                 </div>
+                <div class="message-avatar">
+                    <div class="avatar-stars"></div>
+                </div>
             `;
         } else {
             // 系统消息

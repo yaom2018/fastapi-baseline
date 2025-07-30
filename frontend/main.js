@@ -181,3 +181,9 @@ function updateProgressDisplay(audio, progressBar, timeDisplay) {
     const totalTime = formatTime(audio.duration || 0);
     timeDisplay.textContent = `${currentTime} / ${totalTime}`;
 }
+
+// 在文件末尾添加
+window.addEventListener('load', function() {
+    // 确保移除body上的aria-hidden属性
+    document.body.removeAttribute('aria-hidden');
+});
