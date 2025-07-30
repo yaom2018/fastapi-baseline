@@ -169,14 +169,14 @@ body {
 
 .chat-card {
     grid-column: 1 / 2;
-    grid-row: 1 / 3;
+    grid-row: 1 / 2;
     background: linear-gradient(135deg, rgba(106, 90, 205, 0.3), rgba(72, 61, 139, 0.3));
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 400px;
+    min-height: 500px; /* 从 400px 改为 200px */
 }
 
 .profile-card {
@@ -184,6 +184,20 @@ body {
     grid-row: 1 / 2;
     background: linear-gradient(135deg, rgba(70, 130, 180, 0.3), rgba(25, 25, 112, 0.3));
 }
+
+/* .encounter-card {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.3));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 200px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+} */
 
 .encounter-card {
     grid-column: 3 / 4;
@@ -194,7 +208,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 200px;
+    min-height: 500px; /* 确保高度一致 */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
@@ -622,4 +636,20 @@ body {
 @keyframes typing {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
+}
+
+/* 添加播放按钮的加载状态样式 */
+.play-button.loading {
+    animation: spin 1s linear infinite;
+    cursor: wait;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.play-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }

@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      # 如果需要热更新，可以挂载本地目录
+      # - .:/usr/share/nginx/html
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production

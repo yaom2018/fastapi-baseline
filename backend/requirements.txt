@@ -4,3 +4,13 @@ httpx
 html2image
 pyppeteer
 jinja2
+python-dotenv
+pydantic
+openai
+aiohttp
+cozepy
+requests
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
+psycopg2-binaryjinja2

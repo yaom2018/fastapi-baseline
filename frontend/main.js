@@ -52,16 +52,60 @@ if (playButton) {
         const progressBar = document.querySelector('.progress');
         const timeDisplay = document.querySelector('.time');
 
+        // if (!isPlaying) {
+        //     // 获取音乐URL并播放
+        //     const musicUrl = await fetchMusicUrl('宝宝肚肚打雷了');
+        //     if (musicUrl) {
+        //         audioElement.src = musicUrl;
+        //         try {
+        //             await audioElement.play();
+        //             isPlaying = true;
+        //             playButton.textContent = '❚❚'; // 更改按钮为暂停图标
+        //             playButton.classList.add('playing');
+
+        //             // 监听时间更新事件
+        //             audioElement.addEventListener('timeupdate', () => {
+        //                 updateProgressDisplay(audioElement, progressBar, timeDisplay);
+        //             });
+
+        //             // 音乐结束时重置状态
+        //             audioElement.addEventListener('ended', () => {
+        //                 isPlaying = false;
+        //                 playButton.textContent = '▶';
+        //                 playButton.classList.remove('playing');
+        //                 progressBar.style.width = '0%';
+        //                 timeDisplay.textContent = '0:00 / 0:00';
+        //             });
+        //         } catch (error) {
+        //             console.error('播放失败:', error);
+        //             alert('无法播放音乐: ' + error.message);
+        //         }
+        //     }
+        // } else {
+        //     // 暂停音乐
+        //     audioElement.pause();
+        //     isPlaying = false;
+        //     playButton.textContent = '▶'; // 更改按钮为播放图标
+        //     playButton.classList.remove('playing');
+        // }
         if (!isPlaying) {
-            // 获取音乐URL并播放
-            const musicUrl = await fetchMusicUrl('宝宝肚肚打雷了');
-            if (musicUrl) {
-                audioElement.src = musicUrl;
-                try {
+            // 显示等待状态
+            playButton.textContent = '⏳'; // 更改按钮为等待图标
+            playButton.classList.add('loading');
+            playButton.disabled = true; // 禁用按钮防止重复点击
+
+            try {
+                // 获取音乐URL并播放
+                const musicUrl = await fetchMusicUrl('宝宝肚肚打雷了');
+                
+                if (musicUrl) {
+                    audioElement.src = musicUrl;
                     await audioElement.play();
                     isPlaying = true;
                     playButton.textContent = '❚❚'; // 更改按钮为暂停图标
+                    playButton.classList.remove('loading');
                     playButton.classList.add('playing');
+                    playButton.disabled = false; // 重新启用按钮
 
                     // 监听时间更新事件
                     audioElement.addEventListener('timeupdate', () => {
@@ -76,10 +120,19 @@ if (playButton) {
                         progressBar.style.width = '0%';
                         timeDisplay.textContent = '0:00 / 0:00';
                     });
-                } catch (error) {
-                    console.error('播放失败:', error);
-                    alert('无法播放音乐: ' + error.message);
+                } else {
+                    // 获取URL失败，重置按钮状态
+                    playButton.textContent = '▶';
+                    playButton.classList.remove('loading');
+                    playButton.disabled = false;
                 }
+            } catch (error) {
+                console.error('播放失败:', error);
+                alert('无法播放音乐: ' + error.message);
+                // 播放失败，重置按钮状态
+                playButton.textContent = '▶';
+                playButton.classList.remove('loading');
+                playButton.disabled = false;
             }
         } else {
             // 暂停音乐
