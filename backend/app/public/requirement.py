@@ -3,7 +3,7 @@ from typing import Optional, List
 from fastapi import APIRouter
 import logging
 from utils.standard_response import standard_response
-from services.generate_cart import generate_music, generate_video
+from services.generate_cart import generate_music, generate_video, generate_chat
 from utils.generation_models import GenerationResponseData, GenerationRequest
 
 logging.basicConfig(level=logging.INFO)
@@ -28,3 +28,10 @@ async def generate_files(payload: GenerationRequest):
     res_data.data = response_data
     return res_data
 
+
+@router.post("/chat", response_model= standard_response[GenerationResponseData])
+async def generate_files(payload: GenerationRequest):
+    response_data = await generate_chat(payload)
+    res_data = standard_response[GenerationResponseData]
+    res_data.data = response_data
+    return res_data

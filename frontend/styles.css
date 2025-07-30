@@ -66,6 +66,27 @@ body {
     color: #ffffff;
 }
 
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    font-size: 18px;
+}
+
 .music-player {
     display: flex;
     align-items: center;
@@ -459,11 +480,14 @@ body {
 }
 
 .message-form {
-    flex: 1;
+    flex: 1; /* 平均分配空间 */
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
     border-radius: 10px;
     backdrop-filter: blur(5px);
+    height: 350px; /* 固定表单高度 */
+    display: flex; /* 使用flex布局 */
+    flex-direction: column; /* 垂直排列 */
 }
 
 .message-form h3 {
@@ -473,9 +497,20 @@ body {
     font-size: 16px;
 }
 
+.message-form h3.feelings-heading {
+    height: 120px; /* 统一固定高度 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden; /* 防止内容溢出 */
+    line-height: 1.5; /* 统一行高 */
+    padding: 10px; /* 添加内边距确保内容居中 */
+    margin-bottom: 15px; /* 统一下边距 */
+}
+
 .message-input {
     width: 100%;
-    height: 100px;
+    height: 200px;
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 8px;
