@@ -1,5 +1,5 @@
 # 使用 Python 基础镜像
-FROM python:3.11
+FROM python:3.10
 
 # 设置工作目录
 WORKDIR /app
