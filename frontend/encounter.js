@@ -91,7 +91,7 @@ function initEncounterChat() {
         commonSendButton.textContent = '生成中...';
 
         // API调用逻辑
-        fetch('http://localhost:8000/api/v1/generate/video', {
+        fetch('http://47.116.16.113:8000/api/v1/generate/video', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

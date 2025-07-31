@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             
             // 使用用户提供的API路径
-            const response = await fetch('http://localhost:8000/api/v1/generate/chat', {
+            const response = await fetch('http://47.116.16.113:8000/api/v1/generate/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

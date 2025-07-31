@@ -160,7 +160,7 @@ async function fetchMusicUrl(prompt) {
         console.log('请求音乐API:', prompt);
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 10000);
-        const apiUrl = 'http://127.0.0.1:8000/api/v1/generate/music';
+        const apiUrl = 'http://47.116.16.113:8000/api/v1/generate/music';
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
