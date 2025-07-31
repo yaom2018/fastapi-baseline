@@ -6,8 +6,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      # 如果需要热更新，可以挂载本地目录
-      # - .:/usr/share/nginx/html
+      # 启用热更新，挂载本地目录
+      - .:/usr/share/nginx/html
     restart: unless-stopped
     environment:
       - NODE_ENV=production
