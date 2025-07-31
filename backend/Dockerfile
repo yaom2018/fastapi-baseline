@@ -4,8 +4,6 @@ FROM python:3.10
 # 设置工作目录
 WORKDIR /app
 
-COMPOSE_HTTP_TIMEOUT=300 DOCKER_BUILDKIT=0 docker-compose build
-
 # RUN apt-get update && apt-get install -y \
 #     gcc \
 #     python3-dev \
