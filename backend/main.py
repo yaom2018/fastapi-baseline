@@ -25,10 +25,11 @@ origins = [
     # 添加其他允许的源
 ]
 
+
 # 添加 CORS 中间件
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # 或 ["http://47.116.16.113:8080"]
     allow_credentials=True,
     allow_methods=["*"],  # 允许所有方法
     allow_headers=["*"],  # 允许所有头部
