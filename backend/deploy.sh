@@ -8,16 +8,9 @@ IMAGE_TAG="latest"
 
 # 构建 Docker 镜像
 echo "正在构建 Docker 镜像..."
-COMPOSE_HTTP_TIMEOUT=300 DOCKER_BUILDKIT=0 docker-compose build
-
-if [ $? -ne 0 ]; then
-  echo "镜像构建失败，部署终止。"
-  exit 1
-fi
 
 # 继续其他部署步骤...
-docker build -t "${PROJECT_NAME}:${IMAGE_TAG}" .
-
+docker build --timeout 1200 -t "${PROJECT_NAME}:${IMAGE_TAG}" .
 # 检查镜像是否构建成功
 if [ $? -ne 0 ]; then
     echo "镜像构建失败，部署终止。"
