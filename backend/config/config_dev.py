@@ -20,5 +20,5 @@ OUTPUT_DIR: str = "output"
 STATIC_DIR: str = "static"
 TEMPLATES_DIR: str = "templates"
 
-# COZE_API_TOKEN: str = "pat_XJOlNBECsVyOoNfSRoeflov5blkMw3UDwMzUCbjcVX2ksWJtOFN8AjPp8bno9urO"
-COZE_API_TOKEN: str = "pat_THWaSu6r15bKyZ8yFqaJWEaHXpDgrK3JakOFHaN8EKJxx2tzK60VRF2EQhRx2RoZ"
+# COZE_API_TOKEN: str = ""
+COZE_API_TOKEN: str = ""

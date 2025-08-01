@@ -12,9 +12,13 @@ ARK_API_KEY: str = ""
 ARK_BASE_URL: str = "https://chat.intern-ai.org.cn/api/v1/"
 ARK_BASE_MODEL: str = "internlm3-latest"
 
+
 JINA_API_URL: str = "https://r.jina.ai/"
 JINA_API_KEY = ""
 
 OUTPUT_DIR: str = "output"
 STATIC_DIR: str = "static"
 TEMPLATES_DIR: str = "templates"
+
+# COZE_API_TOKEN: str = ""
+COZE_API_TOKEN: str = ""
